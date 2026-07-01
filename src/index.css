@@ -1,0 +1,517 @@
+:root {
+  --paper: #dbe1e4;
+  --paper-shadow: #c7cfd3;
+  --card: #f4f2ec;
+  --ink: #21262b;
+  --ink-soft: #5b6470;
+  --rail-line: #b9c1c6;
+  --navy: #35506b;
+  --navy-dark: #263c52;
+  --rust: #c1502e;
+  --amber: #c98a2c;
+  --sage: #4f7d5e;
+  --danger: #b23a2e;
+
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  background-image:
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-shadow) 100%);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 2px;
+}
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  align-items: flex-start;
+}
+
+/* ---------- Rail / sidebar ---------- */
+
+.rail {
+  width: 260px;
+  flex-shrink: 0;
+  min-height: 100vh;
+  padding: 28px 22px;
+  background: var(--navy-dark);
+  color: #e7ebee;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  position: sticky;
+  top: 0;
+}
+
+.rail-top .brand {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.rail-top .brand span {
+  color: #e8b25a;
+}
+
+.brand-sub {
+  margin: 6px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #9db0bf;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.rail-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rail-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9db0bf;
+}
+
+.rail select {
+  background: #2e455e;
+  border: 1px solid #43607e;
+  color: #f2f4f6;
+  padding: 9px 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.rail select:focus-visible {
+  outline-color: #e8b25a;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  border: none;
+  border-radius: 6px;
+  padding: 11px 16px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: transform 0.08s ease, filter 0.15s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: #e8b25a;
+  color: #26333f;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.06);
+}
+
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--rail-line);
+  color: var(--ink-soft);
+}
+
+.btn-ghost:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.btn-new {
+  width: 100%;
+}
+
+/* ---------- Main panel ---------- */
+
+.main-panel {
+  flex: 1;
+  padding: 32px clamp(20px, 4vw, 48px);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+  gap: 22px;
+}
+
+/* ---------- Task card (index card motif) ---------- */
+
+.card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid #d9d4c6;
+  border-left: 3px dashed #c8c2b2;
+  border-radius: 4px;
+  padding: 22px 18px 16px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-tab {
+  position: absolute;
+  top: -12px;
+  left: 16px;
+  background: var(--navy);
+  color: #f1f4f6;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+}
+
+.card.priority-high .card-tab {
+  background: var(--rust);
+}
+
+.card.priority-medium .card-tab {
+  background: var(--navy);
+}
+
+.card.priority-low .card-tab {
+  background: #4a5560;
+}
+
+.stamp {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.stamp-high {
+  background: var(--rust);
+}
+
+.stamp-medium {
+  background: var(--amber);
+}
+
+.stamp-low {
+  background: var(--sage);
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin: 10px 30px 0 0;
+  line-height: 1.3;
+}
+
+.card-desc {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.card-meta {
+  min-height: 18px;
+}
+
+.due {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.due-overdue {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.card-controls {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid #e2ddd0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-select {
+  border: 1px solid #d3cebf;
+  background: #fff;
+  border-radius: 5px;
+  padding: 6px 8px;
+  font-size: 0.78rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--navy);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 5px;
+}
+
+.icon-btn:hover {
+  background: rgba(53, 80, 107, 0.1);
+}
+
+.icon-btn-danger {
+  color: var(--danger);
+}
+
+.icon-btn-danger:hover {
+  background: rgba(178, 58, 46, 0.1);
+}
+
+/* ---------- Empty / loading states ---------- */
+
+.state-block {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.state-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.state-sub {
+  font-size: 0.9rem;
+}
+
+/* ---------- Drawer (create/edit form) ---------- */
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 26, 32, 0.45);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 50;
+  animation: fadeIn 0.15s ease;
+}
+
+.drawer {
+  width: min(420px, 100%);
+  height: 100%;
+  background: #fdfcf9;
+  padding: 26px 26px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.2s ease;
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawer-header h2 {
+  font-family: var(--font-display);
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.field label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.field input,
+.field textarea,
+.field select {
+  border: 1px solid #d3cebf;
+  border-radius: 6px;
+  padding: 10px 11px;
+  font-size: 0.92rem;
+  background: #fff;
+  resize: vertical;
+}
+
+.field-error {
+  margin: 0;
+  color: var(--danger);
+  font-size: 0.78rem;
+}
+
+.field-row {
+  display: flex;
+  gap: 14px;
+}
+
+.drawer-actions {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 12px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ---------- Toastify tone-matching ---------- */
+
+.Toastify__toast {
+  font-family: var(--font-body);
+  border-radius: 6px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 860px) {
+  .app-shell {
+    flex-direction: column;
+  }
+
+  .rail {
+    width: 100%;
+    min-height: auto;
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 18px 20px;
+  }
+
+  .rail-top {
+    width: 100%;
+  }
+
+  .btn-new {
+    width: auto;
+    order: 2;
+  }
+
+  .rail-group {
+    flex: 1 1 140px;
+  }
+
+  .main-panel {
+    padding: 24px 18px 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .drawer {
+    width: 100%;
+  }
+
+  .field-row {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer,
+  .drawer-overlay {
+    animation: none;
+  }
+
+  .btn {
+    transition: none;
+  }
+}
